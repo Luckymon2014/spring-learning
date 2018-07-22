@@ -1,0 +1,39 @@
+# spring-learning
+自己造轮子——spring的核心代码
+
+## Spring原理
+- 配置阶段
+    - web.xml
+        - DispatcherServlet
+            - Spring的入口
+    - init-param
+        - contextConfigLocation
+        - classpath:application.xml
+            - 加载Spring总入口的配置文件
+    - url-pattern
+        - /*
+- 初始化阶段
+    - init
+        - 调取DispatcherServlet的init方法
+        - 通过参数config，加载配置文件
+    - IOC容器初始化
+        - 解析配置文件，初始化所有Bean，放入Map
+        - Map<String, Object>即IOC容器
+    - 扫描相关的类
+        - scan-package="com.xxx"
+        - 扫描到的类才进行托管
+    - 实例化
+        - 通过反射机制将类实例化放入IOC容器中
+    - 进行DI操作
+        - 依赖注入
+        - 在IOC容器中的实例，有很多属性没有赋值
+        - 自动把需要赋值的属性进行赋值
+    - HandlerMapping
+        - URL和Method的Map
+        - 将URL和Method进行关联映射
+- 运行阶段
+    - doGet/doPost
+        - 参数：request/response
+        - 从HandlerMapping找到URL对应的Method
+        - 通过反射机制invoker调用方法
+        - 将方法返回的结果通过controller输出到浏览器
