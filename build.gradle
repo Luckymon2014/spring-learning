@@ -1,0 +1,30 @@
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+war.baseName = 'spring'
+
+sourceSets {
+    main.java.srcDirs = ['src/main/java']
+    main.resources.srcDirs = ['src/main/java', 'src/main/resources']
+}
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs')
+    compile(
+            "javax.servlet:javax.servlet-api:3.0.1",
+    )
+    testCompile "junit:junit:4.11"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
